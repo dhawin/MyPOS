@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from 'react'
-import MainLayout from '../layouts/MainLayout'
 import axios from "axios"
 import { toast } from 'react-toastify';
 import { ComponentToPrint } from '../components/ComponentToPrint';
@@ -19,7 +18,7 @@ function POSPage() {
 
   const fetchProducts = async() => {
     setIsLoading(true);
-    const result = await axios.get('products');
+    const result = await axios.get('https://my-json-server.typicode.com/dhawin/dummyDB/products');
     setProducts(await result.data);
     console.log(result.data);
     setIsLoading(false);
@@ -93,7 +92,6 @@ function POSPage() {
 
 
   return (
-    <MainLayout>
       <div className='row'>
         <div className='col-lg-8'>
           {isLoading ? 'Loading' : <div className='row'>
@@ -159,7 +157,6 @@ function POSPage() {
 
         </div>
       </div>
-    </MainLayout>
   )
 }
 

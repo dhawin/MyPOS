@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/MyPOS/static/css/main.3572f698.css",
+    "main.js": "/MyPOS/static/js/main.16a6b48e.js",
+    "index.html": "/MyPOS/index.html",
+    "main.3572f698.css.map": "/MyPOS/static/css/main.3572f698.css.map",
+    "main.16a6b48e.js.map": "/MyPOS/static/js/main.16a6b48e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3572f698.css",
+    "static/js/main.16a6b48e.js"
+  ]
+}

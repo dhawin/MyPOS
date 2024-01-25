@@ -3,15 +3,24 @@ import axios from "axios";
 import YearlySalesChart from './SaleReportComponent/YearlySalesChart'
 import YearlySalesChartWithCus  from './SaleReportComponent/YearlySalesChartWithCus'
 import YearlySalesChartWithMat  from './SaleReportComponent/YearlySalesChartWithMat'
-import fetchDataOrders from '../store/api'
-
+import {fetchDataOrders} from '../store/api'
 
 const OrderChart = () => {
   const [loading, setLoading] = useState(true);
   const [orderData, setOrderData] = useState([]);
 
   useEffect(() => {
-    setOrderData(fetchDataOrders());
+    const fetchData = async () => {
+      try {
+        const result = await fetchDataOrders();
+        setOrderData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
   return (

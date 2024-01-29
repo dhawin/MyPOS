@@ -5,6 +5,7 @@ import MainLayout from "./layouts/MainLayout";
 
 import { db } from "./firebase";
 import SalesReport from "./components/SalesReport";
+import SalesGrowth from "./components/SalesGrowth";
 import OrderChart from './components/OrderChart'
 import CsvUploader from './components/CsvUploader';
 import { useEffect } from "react";
@@ -28,6 +29,8 @@ function App() {
           {/* <Route path="/" element={<HomePage />} /> */}
           <Route path="/" element={<POSPage />} />
           <Route path="/sales" element={<SalesReport />} />
+          <Route path="/saleR" element={<SalesReport />} />
+          <Route path="/saleG" element={<SalesGrowth />} />
           <Route path="/upload" element={<CsvUploader />} />
           <Route path="/chart" element={<OrderChart />} />
         </Routes>

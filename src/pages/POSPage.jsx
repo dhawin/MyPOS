@@ -3,9 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { ComponentToPrint } from "../components/ComponentToPrint";
 import { useReactToPrint } from "react-to-print";
-import { db } from "../firebase";
-import { collection, getDocs, query, limit } from "firebase/firestore";
-import { img } from "../constants/constants";
+import {fetchDataProduct,fetchDataProductFromFirebase} from '../store/api'
 
 function POSPage() {
   const [products, setProducts] = useState([]);
@@ -18,27 +16,16 @@ function POSPage() {
     pauseOnHover: true,
   };
 
-  const collectionRef = collection(db, "products");
-  const queryRef = query(collectionRef, limit(50));
-
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
-      const ordersCollection = await getDocs(queryRef);
-
-      const ordersData = ordersCollection.docs.map((doc, index) => ({
-        id: index + 1,
-        name: doc.data().name || "N/A",
-        price: doc.data().price || 0,
-        image: img[((doc.data().price || 1) - 1) % 20],
-      }));
-
-      setProducts(ordersData);
-      console.log(ordersData);
+      const result = await fetchDataProduct();
+      setProducts(result);
     } catch (error) {
-      console.error("Error fetching orders:", error.message);
+      console.error('Error fetching data:', error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const addProductToCart = async (product) => {

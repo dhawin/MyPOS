@@ -3,6 +3,7 @@ import axios from "axios";
 import YearlySalesChart from './SaleReportComponent/YearlySalesChart'
 import YearlySalesChartWithCus  from './SaleReportComponent/YearlySalesChartWithCus'
 import YearlySalesChartWithMat  from './SaleReportComponent/YearlySalesChartWithMat'
+import TestChart  from './SaleReportComponent/TestChart'
 import {fetchDataOrders} from '../store/api'
 
 const OrderChart = () => {
@@ -11,6 +12,7 @@ const OrderChart = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const result = await fetchDataOrders();
         setOrderData(result);
@@ -27,8 +29,9 @@ const OrderChart = () => {
     <div>
       <h2>Order Chart</h2>
       <YearlySalesChart salesData={orderData}/>
-      <YearlySalesChartWithCus salesData={orderData}/>
-      <YearlySalesChartWithMat salesData={orderData}/>
+      {/* <YearlySalesChartWithCus salesData={orderData}/>
+      <YearlySalesChartWithMat salesData={orderData}/> */}
+      {/* <TestChart salesData={orderData}/> */}
     </div>
   );
 };

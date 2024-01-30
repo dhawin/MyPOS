@@ -25,14 +25,13 @@ I use react to create this website this is an example of my website [https://dha
 
 In our pursuit of unraveling valuable insights into product relationships, we embark on a meticulous exploration of correlations, recognizing their significance in informed decision-making and strategic optimization. Python, chosen for its versatility and efficacy, emerges as the ideal programming language for this project. Its simplicity and readability make it accessible for users across skill levels, while specialized libraries like NumPy and pandas provide powerful tools for statistical analysis. Beyond correlation calculations, Python's broader applicability in machine learning and AI positions our project for future growth.
 
-## 2.1 To find the correlation between products
-I've used Python to find a correlation between Saleorder and Material.
-First, I create dataframe for each saleorder and material. this is [my Code](https://github.com/dhawin/MyPOS/blob/main/correlation/2.1.py)
+## 2.1 Finding Product Correlations
+To ascertain the correlations between products, Python has been employed to analyze the relationship between Saleorder and Material. The provided [my Code](https://github.com/dhawin/MyPOS/blob/main/correlation/2.2.py) initiates by creating a dataframe, grouping data by Saleorder and Material, and summarizing the purchase quantities (Pc). The subsequent steps involve calculating the correlation and exporting the results to CSV files.
  ```python
 df = pd.read_csv('data.csv')
 pivot_df = df.pivot_table(index='Saleorder', columns='material', values='Pc', aggfunc='sum', fill_value=0)
  ```
-And then calulate the correlation and export to csv
+Following the creation of the pivot table, the correlation is computed, and the results are exported to both a flat CSV file (correlation_all.csv) and a stacked CSV file (correlation_all_stacked.csv).
  ```python
 c = pivot_df.corr()
 c.to_csv('correlation_all.csv')
@@ -42,23 +41,13 @@ These outputs indicate material relationships. 
 If almost all customers decide on a material, they always buy another material as well. 
 The sellers can use these as a tool to reccomend other materials to customers to increase their purchasing opportunities.
 
-## 2.2 To find the correlation between products for Customer R44.
-I've used Python to find a correlation between Saleorder and Material.
-First, I create dataframe for each saleorder and material. this is [my Code](https://github.com/dhawin/MyPOS/blob/main/correlation/2.2.py)
+## 2.2 Finding Product Correlations for Customer R44
+To discover correlations between products for Customer R44, the provided [myCode](https://github.com/dhawin/MyPOS/blob/main/correlation/2.2.py) Python script has been implemented. The code filters the dataset to include only transactions related to Customer R44 and then constructs a pivot table to showcase the relationships between different materials based on their purchase quantities (Pc).
  ```python
-df = pd.read_csv('data.csv')
-pivot_df = df.pivot_table(index='Saleorder', columns='material', values='Pc', aggfunc='sum', fill_value=0)
- ```
-And then calulate the correlation and export to csv
- ```python
-c = pivot_df.corr()
-c.to_csv('correlation_all.csv')
-c.stack().to_csv('correlation_all_stacked.csv')
- ```
-These outputs indicate material relationships. 
-If almost all customers decide on a material, they always buy another material as well. 
-The sellers can use these as a tool to reccomend other materials to customers to increase their purchasing opportunities.
-
+df_r44 = df[df['Customer'] == 'R44']
+pivot_df = df_r44.pivot_table(index='Saleorder', columns='material', values='Pc', aggfunc='sum', fill_value=0)
+```
+The resulting pivot table outputs unveil material relationships, indicating instances where customers consistently purchase one material alongside another. This insight can be leveraged by sellers as a tool to recommend additional materials to customers, potentially increasing their purchasing opportunities. Such correlation analysis provides valuable strategic information for optimizing product recommendations and enhancing customer satisfaction.
 # Getting Started with React App
 
 In the project directory, you can run:

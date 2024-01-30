@@ -18,8 +18,19 @@ The name already says it all, yes, it is a service that manages Auth for us, whi
 ### UI
 React is utilized for creating the website. An example of the website can be found [here](https://dhawin.github.io/MyPOS/)
 
-# Sale Target
+# Sale Report
+
+
+## 1.2the sale target report
 [SaleReport](https://dhawin.github.io/MyPOS/#/saleR)
+we have divided it into 2 parts.
+### First part: product report
+Used to display products sold each year. Compared to last year In order to be aware of the changes and apply them to plan our next strategy, we have set a target of more than 5% from last year.
+### Part two: customer report
+It is a repoort for showing customer purchases each year to compare with the previous year to see if customers have increased or decreased purchases or not. and bring it to find the cause improve development Give customers better
+## Sale Growth Report
+[SaleGrowthReport](https://dhawin.github.io/MyPOS/#/saleG)
+To see sales each year and make it enter the growth trend of the company We cannot look at just one year, we have to look at many years at the same time.
 
 # Data Analytics Report
 

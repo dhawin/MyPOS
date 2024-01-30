@@ -18,19 +18,16 @@ The name already says it all, yes, it is a service that manages Auth for us, whi
 ### UI
 React is utilized for creating the website. An example of the website can be found [here](https://dhawin.github.io/MyPOS/)
 
-# Sale Report
-
-
-## 1.2the sale target report
-[SaleReport](https://dhawin.github.io/MyPOS/#/saleR)
-we have divided it into 2 parts.
-### First part: product report
-Used to display products sold each year. Compared to last year In order to be aware of the changes and apply them to plan our next strategy, we have set a target of more than 5% from last year.
-### Part two: customer report
-It is a repoort for showing customer purchases each year to compare with the previous year to see if customers have increased or decreased purchases or not. and bring it to find the cause improve development Give customers better
+# Sale Report (1.2)
+## the sale target report
+here the link for the [Sale Target Report](https://dhawin.github.io/MyPOS/#/saleR).
+ This report is divided into two essential parts to provide a comprehensive overview:
+### Part One: Product Report
+This section is dedicated to displaying products sold each year, facilitating a comparison with the previous year. The objective is to discern changes and strategically plan for the future. A target has been set to achieve growth exceeding 5% from the previous year.
+### Part Two: Customer Report
+The Customer Report offers insights into customer purchases each year, allowing for a year-over-year comparison. This analysis helps identify trends, such as an increase or decrease in customer purchases. The findings are crucial for understanding customer behavior and formulating strategies for improvement and development to enhance customer satisfaction.
 ## Sale Growth Report
-[SaleGrowthReport](https://dhawin.github.io/MyPOS/#/saleG)
-To see sales each year and make it enter the growth trend of the company We cannot look at just one year, we have to look at many years at the same time.
+The [Sale Growth Report](https://dhawin.github.io/MyPOS/#/saleG) acts as a pivotal tool for tracking sales trends over multiple years. Understanding the company's growth trajectory requires a comprehensive analysis of sales data over an extended period, transcending individual years. This holistic approach provides valuable insights into the overall growth trend of the company.
 
 # Data Analytics Report
 

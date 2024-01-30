@@ -6,18 +6,6 @@ An Entity Relationship (ER) Diagram are used to design relational databases in t
 
 ![ER Diagram](https://github.com/dhawin/MyPOS/blob/main/doc/ER.jpg)
 
-## Backend
-### Firebase 
-is a platform that brings together various tools for backend or server side management.This makes it possible to build mobile applications efficiently. It also reduces the time and cost of doing server side or data analysis as well. There are both free tools. and equipment that costs money (for scaling)
-
-### cloud firestore 
-for a database service that is NoSQL in nature, taking the advantages of Firebase's Realtime Database as well and extending it as well.
-### Authentication 
-The name already says it all, yes, it is a service that manages Auth for us, which is very comprehensive, including email-password, phone, to facebook, twitter, github for login as well.
-
-### UI
-React is utilized for creating the website. An example of the website can be found [here](https://dhawin.github.io/MyPOS/)
-
 ### Backend 
 In our project, we have opted for Firebase as our backend platform due to its all-encompassing suite of tools. Leveraging the Cloud Firestore for our NoSQL database allows us to capitalize on the advantages offered by Firebase's Realtime Database.
 

@@ -3,13 +3,19 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { ComponentToPrint } from "../components/ComponentToPrint";
 import { useReactToPrint } from "react-to-print";
-import {fetchDataProduct,fetchDataProductFromFirebase} from '../store/api'
+import { fetchDataProduct, fetchDataProductFromFirebase } from "../store/api";
+import { useCart } from "../store/CartContext";
+import { Carousel, Card, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function POSPage() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [cart, setCart] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
+  // const [cart, setCart] = useState([]);
+  // const [totalAmount, setTotalAmount] = useState(0);
+
+  const { cartState, dispatch } = useCart();
+  const { cart, totalAmount } = cartState;
 
   const toastOptions = {
     autoClose: 400,
@@ -22,51 +28,60 @@ function POSPage() {
       const result = await fetchDataProduct();
       setProducts(result);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const addProductToCart = async (product) => {
-    // check if the adding product exist
-    let findProductInCart = await cart.find((i) => {
-      return i.id === product.id;
-    });
+  // const addProductToCart = async (product) => {
+  //   // check if the adding product exist
+  //   let findProductInCart = await cart.find((i) => {
+  //     return i.id === product.id;
+  //   });
 
-    if (findProductInCart) {
-      let newCart = [];
-      let newItem;
+  //   if (findProductInCart) {
+  //     let newCart = [];
+  //     let newItem;
 
-      cart.forEach((cartItem) => {
-        if (cartItem.id === product.id) {
-          newItem = {
-            ...cartItem,
-            quantity: cartItem.quantity + 1,
-            totalAmount: cartItem.price * (cartItem.quantity + 1),
-          };
-          newCart.push(newItem);
-        } else {
-          newCart.push(cartItem);
-        }
-      });
+  //     cart.forEach((cartItem) => {
+  //       if (cartItem.id === product.id) {
+  //         newItem = {
+  //           ...cartItem,
+  //           quantity: cartItem.quantity + 1,
+  //           totalAmount: cartItem.price * (cartItem.quantity + 1),
+  //         };
+  //         newCart.push(newItem);
+  //       } else {
+  //         newCart.push(cartItem);
+  //       }
+  //     });
 
-      setCart(newCart);
-      toast(`Added ${newItem.name} to cart`, toastOptions);
-    } else {
-      let addingProduct = {
-        ...product,
-        quantity: 1,
-        totalAmount: product.price,
-      };
-      setCart([...cart, addingProduct]);
-      toast(`Added ${product.name} to cart`, toastOptions);
-    }
+  //     setCart(newCart);
+  //     toast(`Added ${newItem.name} to cart`, toastOptions);
+  //   } else {
+  //     let addingProduct = {
+  //       ...product,
+  //       quantity: 1,
+  //       totalAmount: product.price,
+  //     };
+  //     setCart([...cart, addingProduct]);
+  //     toast(`Added ${product.name} to cart`, toastOptions);
+  //   }
+  // };
+
+  // const removeProduct = async (product) => {
+  //   const newCart = cart.filter((cartItem) => cartItem.id !== product.id);
+  //   setCart(newCart);
+  // };
+
+  const addProductToCart = (product) => {
+    dispatch({ type: "ADD_TO_CART", payload: product });
+    toast(`Added ${product.name} to cart`, toastOptions);
   };
 
-  const removeProduct = async (product) => {
-    const newCart = cart.filter((cartItem) => cartItem.id !== product.id);
-    setCart(newCart);
+  const removeProduct = (product) => {
+    dispatch({ type: "REMOVE_FROM_CART", payload: product });
   };
 
   const componentRef = useRef();
@@ -83,37 +98,108 @@ function POSPage() {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    let newTotalAmount = 0;
-    cart.forEach((icart) => {
-      newTotalAmount = newTotalAmount + parseInt(icart.totalAmount);
-    });
-    setTotalAmount(newTotalAmount);
-  }, [cart]);
+  // useEffect(() => {
+  //   let newTotalAmount = 0;
+  //   cart.forEach((icart) => {
+  //     newTotalAmount = newTotalAmount + parseInt(icart.totalAmount);
+  //   });
+  //   setTotalAmount(newTotalAmount);
+  // }, [cart]);
+
+  const chunkArray = (array, size) => {
+    const chunkedArray = [];
+    for (let i = 0; i < array.length; i += size) {
+      chunkedArray.push(array.slice(i, i + size));
+    }
+    return chunkedArray;
+  };
+
+  const chunkedProducts = chunkArray(products.slice(0, 6), 3);
 
   return (
     <div className="row">
-      <div className="col-lg-8">
+      <div className="col-lg-12">
+        <style>
+          {`
+            .carousel-control-prev, .carousel-control-next {
+              top: 50%;
+              transform: translateY(-50%);
+            }
+          `}
+        </style>
         {isLoading ? (
           "Loading"
         ) : (
-          <div className="row">
-            {products.map((product, key) => (
-              <div key={key} className="col-lg-4 mb-4">
-                <div
-                  className="pos-item px-3 text-center border"
-                  onClick={() => addProductToCart(product)}
-                >
-                  <p>{product.name}</p>
-                  <img src={product.image} className="img-fluid" alt={product.name} />
-                  <p>${product.price}</p>
+          <>
+            <Carousel indicators={false} className="d-md-none">
+              {" "}
+              {/* Hide on desktop */}
+              {products.slice(0, 6).map((product, index) => (
+                <Carousel.Item key={index}>
+                  <div className="d-flex justify-content-around">
+                    <Card key={product.id} style={{ width: "18rem" }}>
+                      <Card.Img variant="top" src={product.image} alt={product.name} />
+                      <Card.Body>
+                        <Card.Title>{product.name}</Card.Title>
+                        <div className="d-flex justify-content-between">
+                          <Card.Text>฿{product.price}</Card.Text>
+                          <Button variant="primary" onClick={() => addProductToCart(product)}>
+                            <i className="fas fa-shopping-cart"></i> Add to Cart
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+
+            <Carousel indicators={false} className="d-none d-md-block">
+              {" "}
+              {/* Hide on mobile */}
+              {chunkedProducts.map((chunk, index) => (
+                <Carousel.Item key={index}>
+                  <div className="d-flex justify-content-around">
+                    {chunk.map((product) => (
+                      <Card key={product.id} style={{ width: "18rem" }}>
+                        <Card.Img variant="top" src={product.image} alt={product.name} />
+                        <Card.Body>
+                          <Card.Title>{product.name}</Card.Title>
+                          <div className="d-flex justify-content-between">
+                            <Card.Text>฿{product.price}</Card.Text>
+                            <Button variant="primary" onClick={() => addProductToCart(product)}>
+                              <i className="fas fa-shopping-cart"></i> Add to Cart
+                            </Button>
+                          </div>
+                        </Card.Body>
+                      </Card>
+                    ))}
+                  </div>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+
+            {/* Product cards */}
+            <div className="row mt-4">
+              {products.slice(0).map((product, key) => (
+                <div key={key} className="col-lg-4 mb-4">
+                  <div className="pos-item px-3 text-center border">
+                    <img src={product.image} className="img-fluid" alt={product.name} />
+                    <h4 className="mt-2">{product.name}</h4>
+                    <div className="d-flex justify-content-between">
+                      <p>฿{product.price}</p>
+                      <button className="btn btn-primary" onClick={() => addProductToCart(product)}>
+                        <i className="fas fa-shopping-cart"></i> Add to Cart
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
-      <div className="col-lg-4">
+      {/* <div className="col-lg-4">
         <div style={{ display: "none" }}>
           <ComponentToPrint cart={cart} totalAmount={totalAmount} ref={componentRef} />
         </div>
@@ -136,7 +222,27 @@ function POSPage() {
                       <td>{cartProduct.id}</td>
                       <td>{cartProduct.name}</td>
                       <td>{cartProduct.price}</td>
-                      <td>{cartProduct.quantity}</td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <button
+                            className="btn btn-sm btn-secondary me-2"
+                            onClick={() =>
+                              dispatch({ type: "DECREASE_QUANTITY", payload: cartProduct })
+                            }
+                          >
+                            -
+                          </button>
+                          {cartProduct.quantity}
+                          <button
+                            className="btn btn-sm btn-secondary ms-2"
+                            onClick={() =>
+                              dispatch({ type: "INCREASE_QUANTITY", payload: cartProduct })
+                            }
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
                       <td>{cartProduct.totalAmount}</td>
                       <td>
                         <button
@@ -165,7 +271,7 @@ function POSPage() {
             "Please add a product to the cart"
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

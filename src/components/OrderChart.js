@@ -29,8 +29,8 @@ const OrderChart = () => {
     <div>
       <h2>Order Chart</h2>
       <YearlySalesChart salesData={orderData}/>
-      {/* <YearlySalesChartWithCus salesData={orderData}/>
-      <YearlySalesChartWithMat salesData={orderData}/> */}
+      <YearlySalesChartWithCus salesData={orderData}/>
+      <YearlySalesChartWithMat salesData={orderData}/>
       {/* <TestChart salesData={orderData}/> */}
     </div>
   );

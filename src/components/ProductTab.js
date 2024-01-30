@@ -19,6 +19,7 @@ function ProductTab({ salesData }) {
     // Extract distinct years from salesData
     const years = Array.from(new Set(salesData.map((item) => item.year))).sort();
     setDistinctYears(years);
+    handleYearChange(years[0]);
   }, [salesData]);
 
   const calculateYearTotals = (year) => {
@@ -83,8 +84,11 @@ function ProductTab({ salesData }) {
       const pcsThisYear = item.sum;
       const pcsLastYear =
         lastYearMaterialSum.find((lastYearItem) => lastYearItem.material === item.material)?.sum ||
-        0;
-      const changePercentage = pcsLastYear == 0 ? pcsThisYear : ((pcsThisYear - pcsLastYear) / pcsLastYear) * 100 || 0;
+        "-";
+      const changePercentage =
+        pcsLastYear == "-"
+          ? "N/A"
+          : (((pcsThisYear - pcsLastYear) / pcsLastYear) * 100 || 0).toFixed(2);
 
       return {
         material: item.material,
@@ -94,7 +98,15 @@ function ProductTab({ salesData }) {
       };
     });
 
-    tableData.sort((a, b) => b.changePercentage - a.changePercentage);
+    tableData.sort((a, b) => {
+      if (a.changePercentage === "N/A" && b.changePercentage !== "N/A") {
+        return 1; // Move "N/A" to the end
+      } else if (a.changePercentage !== "N/A" && b.changePercentage === "N/A") {
+        return -1; // Move "N/A" to the end
+      } else {
+        return parseFloat(b.changePercentage) - parseFloat(a.changePercentage);
+      }
+    });
 
     setMaterialTableData(tableData);
   };
@@ -108,8 +120,7 @@ function ProductTab({ salesData }) {
     calculateMaterialTableData();
   }, [materialSumData, lastYearMaterialSum]);
 
-  const handleYearChange = (event) => {
-    const selectedYear = event.target.value;
+  const handleYearChange = (selectedYear) => {
     setSelectedYear(selectedYear);
     const selectedYearData = salesData.filter((item) => item.year == selectedYear);
     setSelectedYearData(selectedYearData);
@@ -161,84 +172,196 @@ function ProductTab({ salesData }) {
     <div>
       <h2>Product Tab Content</h2>
       {/* Dropdown for selecting years */}
-      <label htmlFor="yearDropdown" aria-required="true">
-        Overview Year
-      </label>
-      <select id="yearDropdown" value={selectedYear} onChange={handleYearChange}>
-        <option value="">choose year</option>
-        {distinctYears.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
-
-      {/* Display total pc for selected year and previous year */}
-      {selectedYear && (
-        <div>
-          <p>
-            Total PC for {selectedYear}: {selectedYearTotal.toLocaleString()}
-          </p>
-          <p>
-            Total PC for {parseInt(selectedYear) - 1} (Previous Year):{" "}
-            {previousYearTotal.toLocaleString()}
-          </p>
-          <p>Target Sale: {targetSale.toLocaleString()}</p>
-          <p style={{ color: targetSaleGoal >= 0 ? "green" : "red" }}>
-            Target Sale Goal:{" "}
-            {targetSaleGoal >= 0
-              ? `+${targetSaleGoal.toFixed(2).toLocaleString()}%`
-              : `${targetSaleGoal.toFixed(2).toLocaleString()}%`}
-          </p>
-        </div>
-      )}
-
-      {/* Display material table */}
-      <h3>Material Table:</h3>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Material</th>
-            <th>PCS This Year</th>
-            <th>PCS Last Year</th>
-            <th>Change %</th>
-          </tr>
-        </thead>
-        <tbody>
-          {materialTableData.map(({ material, pcsThisYear, pcsLastYear, changePercentage }) => (
-            <tr key={material}>
-              <td>{material}</td>
-              <td>{pcsThisYear.toLocaleString()}</td>
-              <td>{pcsLastYear.toLocaleString()}</td>
-              <td style={{ color: changePercentage >= 0 ? "green" : "red" }}>
-                {changePercentage.toFixed(2)}%
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* Display top and bottom materials charts */}
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{ width: "45%" }}>
-          <h3>Top Materials Chart:</h3>
-          {materialSumData && materialSumData.length > 0 ? (
-            <Bar data={chartTopData} options={chartOptions} />
-          ) : (
-            <p>No data available for top materials.</p>
-          )}
-        </div>
-        <div style={{ width: "45%" }}>
-          <h3>Bottom Materials Chart:</h3>
-          {materialSumData && materialSumData.length > 0 ? (
-            <Bar data={chartBottomData} options={chartOptions} />
-          ) : (
-            <p>No data available for bottom materials.</p>
-          )}
+      <div class="container-fluid">
+        <div className="row">
+          <div className="col-xl-4 col-md-6 mb-4">
+            <label htmlFor="yearDropdown" aria-required="true">
+              Overview Year
+            </label>
+            <select
+              id="yearDropdown"
+              value={selectedYear}
+              onChange={(e) => handleYearChange(e.target.value)}
+            >
+              <option value="">choose year</option>
+              {distinctYears.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
-      {/* Add product-related content here */}
+      {/* Display total pc for selected year and previous year */}
+      {selectedYear && (
+        <>
+          <div class="container-fluid">
+            <div className="row">
+              <div className="col-xl-4 col-md-6 mb-4">
+                <div className="card border-left-primary shadow h-100 py-2">
+                  <div className="card-body">
+                    <div className="row no-gutters align-items-center">
+                      <div className="col mr-2">
+                        <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                          Total ({selectedYear})
+                        </div>
+                        <div className="h5 mb-0 font-weight-bold text-gray-800">
+                          {selectedYearTotal.toLocaleString()} Pcs
+                        </div>
+                      </div>
+                      <div className="col-auto">
+                        <i className="fas fa-calendar fa-2x text-gray-300" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-4 col-md-6 mb-4">
+                <div className="card border-left-success shadow h-100 py-2">
+                  <div className="card-body">
+                    <div className="row no-gutters align-items-center">
+                      <div className="col mr-2">
+                        <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
+                          Target Sale
+                        </div>
+                        <div className="h5 mb-0 font-weight-bold text-gray-800">
+                          {targetSale.toLocaleString()} Pcs
+                        </div>
+                      </div>
+                      <div className="col-auto">
+                        <i className="fas fa-dollar-sign fa-2x text-gray-300" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Earnings (Monthly) Card Example */}
+              <div className="col-xl-4 col-md-6 mb-4">
+                <div className="card border-left-info shadow h-100 py-2">
+                  <div className="card-body">
+                    <div className="row no-gutters align-items-center">
+                      <div className="col mr-2">
+                        <div
+                          className={
+                            "text-xs font-weight-bold text-uppercase mb-1 " +
+                            (targetSaleGoal >= 0 ? "text-info" : "text-danger")
+                          }
+                        >
+                          Target Sale Goal
+                        </div>
+                        <div className="row no-gutters align-items-center">
+                          <div className="col-auto">
+                            <div
+                              className={
+                                "h5 mb-0 mr-3 font-weight-bold text-gray-800 " +
+                                (targetSaleGoal >= 0 ? "" : "text-danger")
+                              }
+                            >
+                              {targetSaleGoal >= 0
+                                ? targetSaleGoal === Infinity
+                                  ? "N/A"
+                                  : `+${targetSaleGoal.toFixed(2).toLocaleString()}%`
+                                : `${targetSaleGoal.toFixed(2).toLocaleString()}%`}
+                            </div>
+                          </div>
+                          <div className="col">
+                            <div className="progress progress-sm mr-2">
+                              <div
+                                className={
+                                  "progress-bar " + (targetSaleGoal >= 0 ? "bg-info" : "bg-danger")
+                                }
+                                role="progressbar"
+                                style={{
+                                  width:
+                                    targetSaleGoal >= 0
+                                      ? targetSaleGoal === Infinity
+                                        ? "N/A"
+                                        : `+${targetSaleGoal.toFixed(2).toLocaleString()}%`
+                                      : `${targetSaleGoal.toFixed(2).toLocaleString()}%`,
+                                }}
+                                aria-valuenow={50}
+                                aria-valuemin={0}
+                                aria-valuemax={100}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-auto">
+                        <i className="fas fa-clipboard-list fa-2x text-gray-300" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* <p>
+              Total PC for {selectedYear}: {selectedYearTotal.toLocaleString()}
+            </p>
+            <p>
+              Total PC for {parseInt(selectedYear) - 1} (Previous Year):{" "}
+              {previousYearTotal.toLocaleString()}
+            </p>
+            <p>Target Sale: {targetSale.toLocaleString()}</p>
+            <p style={{ color: targetSaleGoal >= 0 ? "green" : "red" }}>
+              Target Sale Goal:{" "}
+              {targetSaleGoal >= 0
+                ? `+${targetSaleGoal.toFixed(2).toLocaleString()}%`
+                : `${targetSaleGoal.toFixed(2).toLocaleString()}%`}
+            </p> */}
+          </div>
+
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <h3>Top Materials Chart:</h3>
+                {materialSumData && materialSumData.length > 0 ? (
+                  <Bar data={chartTopData} options={chartOptions} />
+                ) : (
+                  <p>No data available for top materials.</p>
+                )}
+              </div>
+              <div className="col-md-6">
+                <h3>Bottom Materials Chart:</h3>
+                {materialSumData && materialSumData.length > 0 ? (
+                  <Bar data={chartBottomData} options={chartOptions} />
+                ) : (
+                  <p>No data available for bottom materials.</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Display material table */}
+          <h3>Material Table:</h3>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Material</th>
+                <th>PCS This Year</th>
+                <th>PCS Last Year</th>
+                <th>Change %</th>
+              </tr>
+            </thead>
+            <tbody>
+              {materialTableData.map(({ material, pcsThisYear, pcsLastYear, changePercentage }) => (
+                <tr key={material}>
+                  <td>{material}</td>
+                  <td>{pcsThisYear.toLocaleString()}</td>
+                  <td>{pcsLastYear.toLocaleString()}</td>
+                  <td style={{ color: changePercentage >= 0 ? "green" : "red" }}>
+                    {changePercentage}
+                    {changePercentage != "N/A" ? "%" : ""}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   );
 }

@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useCart } from "../store/CartContext";
 
 function MainLayout({ children }) {
   const [show, setShow] = useState(false);
+
+  const { cartState } = useCart();
+  const { cart } = cartState;
+
+  const totalItems = cart.length;
 
   const toggleMenu = () => {
     setShow(!show);
@@ -25,6 +31,18 @@ function MainLayout({ children }) {
             <Link to="/" className="navbar-brand">
               Dhawin's Shop
             </Link>
+
+            <div className="d-flex align-items-center">
+              <Link className="nav-link position-relative px-2" to="/cart">
+                <i className="fas fa-shopping-cart"></i>
+                {totalItems > 0 && (
+                  <span className="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            </div>
+
             <button
               className="navbar-toggler"
               type="button"

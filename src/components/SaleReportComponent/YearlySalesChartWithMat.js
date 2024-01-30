@@ -28,7 +28,7 @@ const YearlySalesChartWithMat = ({ salesData }) => {
 
   const calculateSalesByYearAndCustomers = (salesData) => {
     const totalSaleByCus = calculateTotalSalesByCustomer(salesData);
-    debugger
+    // debugger
     const salesByYearAndCustomers = salesData.reduce((acc, item) => {
       const { material, Pc, year } = item;
       const parsedPc = parseInt(Pc, 10);

@@ -13,6 +13,7 @@ function CustomerTab({ salesData }) {
   useEffect(() => {
     const years = Array.from(new Set(salesData.map((item) => item.year))).sort();
     setDistinctYears(years);
+    handleYearChange(years[0]);
   }, [salesData]);
 
   useEffect(() => {
@@ -51,9 +52,9 @@ function CustomerTab({ salesData }) {
 
       const tableData = customers.map((customer) => {
         const pcsThisYear = thisYearCustomerSum[customer] || 0;
-        const pcsLastYear = lastYearCustomerSum[customer] || 0;
+        const pcsLastYear = lastYearCustomerSum[customer] || "-";
         const change =
-          pcsLastYear !== 0
+          pcsLastYear != "-"
             ? (((pcsThisYear - pcsLastYear) / pcsLastYear) * 100).toFixed(2)
             : "N/A";
 
@@ -71,42 +72,41 @@ function CustomerTab({ salesData }) {
     }
   }, [thisYearCustomerSum, lastYearCustomerSum]);
 
-  const handleYearChange = (event) => {
-    const selectedYear = event.target.value;
+  const handleYearChange = (selectedYear) => {
     setSelectedYear(selectedYear);
   };
 
-   // Data for Bar Chart
-   const barChartData = {
-    labels: sortedTableData.map(item => item.customer).slice(0,10),
+  // Data for Bar Chart
+  const barChartData = {
+    labels: sortedTableData.map((item) => item.customer).slice(0, 10),
     datasets: [
       {
-        label: 'Pcs This Year',
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
+        label: "Pcs This Year",
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
         borderWidth: 1,
-        hoverBackgroundColor: 'rgba(75,192,192,0.8)',
-        hoverBorderColor: 'rgba(75,192,192,1)',
-        data: sortedTableData.map(item => item.pcsThisYear)
+        hoverBackgroundColor: "rgba(75,192,192,0.8)",
+        hoverBorderColor: "rgba(75,192,192,1)",
+        data: sortedTableData.map((item) => item.pcsThisYear),
       },
       {
-        label: 'Pcs Last Year',
-        backgroundColor: 'rgba(255,99,132,0.4)',
-        borderColor: 'rgba(255,99,132,1)',
+        label: "Pcs Last Year",
+        backgroundColor: "rgba(255,99,132,0.4)",
+        borderColor: "rgba(255,99,132,1)",
         borderWidth: 1,
-        hoverBackgroundColor: 'rgba(255,99,132,0.8)',
-        hoverBorderColor: 'rgba(255,99,132,1)',
-        data: sortedTableData.map(item => item.pcsLastYear)
-      }
-    ]
+        hoverBackgroundColor: "rgba(255,99,132,0.8)",
+        hoverBorderColor: "rgba(255,99,132,1)",
+        data: sortedTableData.map((item) => item.pcsLastYear),
+      },
+    ],
   };
 
   const options = {
-    indexAxis: 'x',
+    indexAxis: "x",
     scales: {
       x: { stacked: false },
-      y: { stacked: false }
-    }
+      y: { stacked: false },
+    },
   };
 
   return (
@@ -116,7 +116,7 @@ function CustomerTab({ salesData }) {
       <label htmlFor="yearDropdown" aria-required="true">
         Overview Year
       </label>
-      <select id="yearDropdown" value={selectedYear} onChange={handleYearChange}>
+      <select id="yearDropdown" value={selectedYear} onChange={e=>handleYearChange(e.target.value)}>
         <option value="">choose year</option>
         {distinctYears.map((year) => (
           <option key={year} value={year}>
@@ -129,10 +129,7 @@ function CustomerTab({ salesData }) {
       {selectedYear && thisYearData.length > 0 && (
         <div>
           {/* Bar Chart */}
-          <Bar
-            data={barChartData}
-            options={options}
-          />
+          <Bar data={barChartData} options={options} />
           <table className="table table-striped">
             <thead>
               <tr>
@@ -147,7 +144,7 @@ function CustomerTab({ salesData }) {
                 <tr key={customer}>
                   <td>{customer}</td>
                   <td>{parseInt(pcsThisYear).toLocaleString()}</td>
-                  <td>{parseInt(pcsLastYear).toLocaleString()}</td>
+                  <td>{pcsLastYear != "-" ? parseInt(pcsLastYear).toLocaleString() : "-"}</td>
                   <td
                     style={{
                       color:

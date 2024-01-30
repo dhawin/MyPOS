@@ -1,6 +1,6 @@
 # Online Ordering System
 An Entity Relationship (ER) Diagram are used to design relational databases in this project as shown below.
-[![doc/ER.jpg](https://github.com/dhawin/MyPOS/blob/main/doc/ER.jpg)
+![doc/ER.jpg](https://github.com/dhawin/MyPOS/blob/main/doc/ER.jpg)
 
 # Getting Started with React App
 

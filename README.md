@@ -11,7 +11,7 @@ In our project, we have opted for Firebase as our backend platform due to its al
 
 Firebase extends its functionality to authentication, managing various authentication methods seamlessly. This includes handling email-password pairs, phone authentication, as well as social media logins through platforms such as Facebook, Twitter, and GitHub.
 
-### UI
+### Frontend
 For our web development needs, we have employed React Bootstrap, a choice made for its convenience and effectiveness. React Bootstrap aligns with our development preferences, and its component-based architecture enhances code modularity and reusability. An example of the website can be found [here](https://dhawin.github.io/MyPOS/)
 
 # Sale Report (1.2)

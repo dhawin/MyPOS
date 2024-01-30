@@ -7,14 +7,19 @@ An Entity Relationship (ER) Diagram are used to design relational databases in t
 ![doc/ER.jpg](https://github.com/dhawin/MyPOS/blob/main/doc/ER.jpg)
 
 ## Backend
-Firebase is a platform that brings together various tools for backend or server side management.This makes it possible to build mobile applications efficiently. It also reduces the time and cost of doing server side or data analysis as well. There are both free tools. and equipment that costs money (for scaling)
+### Firebase 
+is a platform that brings together various tools for backend or server side management.This makes it possible to build mobile applications efficiently. It also reduces the time and cost of doing server side or data analysis as well. There are both free tools. and equipment that costs money (for scaling)
 
-### cloud firestore for a database service that is NoSQL in nature, taking the advantages of Firebase's Realtime Database as well and extending it as well.
-### Authentication The name already says it all, yes, it is a service that manages Auth for us, which is very comprehensive, including email-password, phone, to facebook, twitter, github for login as well.
-### Hosting is hosting for single-page web app, landing page website, which manages the deployment and in the Custom Domain section (not free), SSL is also installed.
+### cloud firestore 
+for a database service that is NoSQL in nature, taking the advantages of Firebase's Realtime Database as well and extending it as well.
+### Authentication 
+The name already says it all, yes, it is a service that manages Auth for us, which is very comprehensive, including email-password, phone, to facebook, twitter, github for login as well.
 
 ### UI
 I use react to create this website this is an example of my website [https://dhawin.github.io/MyPOS/]
+
+# Sale Target
+[https://dhawin.github.io/MyPOS/#/saleR]
 
 # Getting Started with React App
 

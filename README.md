@@ -19,7 +19,7 @@ The name already says it all, yes, it is a service that manages Auth for us, whi
 React is utilized for creating the website. An example of the website can be found [here](https://dhawin.github.io/MyPOS/)
 
 # Sale Target
-[https://dhawin.github.io/MyPOS/#/saleR]
+[SaleReport](https://dhawin.github.io/MyPOS/#/saleR)
 
 # Data Analytics Report
 

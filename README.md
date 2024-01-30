@@ -16,7 +16,7 @@ for a database service that is NoSQL in nature, taking the advantages of Firebas
 The name already says it all, yes, it is a service that manages Auth for us, which is very comprehensive, including email-password, phone, to facebook, twitter, github for login as well.
 
 ### UI
-I use react to create this website this is an example of my website [https://dhawin.github.io/MyPOS/]
+React is utilized for creating the website. An example of the website can be found [here](https://dhawin.github.io/MyPOS/)
 
 # Sale Target
 [https://dhawin.github.io/MyPOS/#/saleR]

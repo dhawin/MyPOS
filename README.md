@@ -18,6 +18,14 @@ The name already says it all, yes, it is a service that manages Auth for us, whi
 ### UI
 React is utilized for creating the website. An example of the website can be found [here](https://dhawin.github.io/MyPOS/)
 
+### Backend 
+In our project, we have opted for Firebase as our backend platform due to its all-encompassing suite of tools. Leveraging the Cloud Firestore for our NoSQL database allows us to capitalize on the advantages offered by Firebase's Realtime Database.
+
+Firebase extends its functionality to authentication, managing various authentication methods seamlessly. This includes handling email-password pairs, phone authentication, as well as social media logins through platforms such as Facebook, Twitter, and GitHub.
+
+### UI
+For our web development needs, we have employed React Bootstrap, a choice made for its convenience and effectiveness. React Bootstrap aligns with our development preferences, and its component-based architecture enhances code modularity and reusability. An example of the website can be found [here](https://dhawin.github.io/MyPOS/)
+
 # Sale Report (1.2)
 ## Sale Target Report
 Here the link for the [Sale Target Report](https://dhawin.github.io/MyPOS/#/saleR).

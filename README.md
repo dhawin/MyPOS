@@ -4,7 +4,7 @@
 
 An Entity Relationship (ER) Diagram are used to design relational databases in this project as shown below.
 
-![doc/ER.jpg](https://github.com/dhawin/MyPOS/blob/main/doc/ER.jpg)
+![ER Diagram](https://github.com/dhawin/MyPOS/blob/main/doc/ER.jpg)
 
 ## Backend
 ### Firebase 

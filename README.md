@@ -21,6 +21,19 @@ I use react to create this website this is an example of my website [https://dha
 # Sale Target
 [https://dhawin.github.io/MyPOS/#/saleR]
 
+# Data Analytic
+
+In our pursuit of unraveling valuable insights into product relationships, we embark on a meticulous exploration of correlations, recognizing their significance in informed decision-making and strategic optimization. Python, chosen for its versatility and efficacy, emerges as the ideal programming language for this project. Its simplicity and readability make it accessible for users across skill levels, while specialized libraries like NumPy and pandas provide powerful tools for statistical analysis. Beyond correlation calculations, Python's broader applicability in machine learning and AI positions our project for future growth.
+
+## 2.1
+ ```python
+df = pd.read_csv('data.csv')
+pivot_df = df.pivot_table(index='Saleorder', columns='material', values='Pc', aggfunc='sum', fill_value=0)
+ ```
+I've used Python to find a correlation between Saleorder and Material. These outputs indicate material relationships. 
+If almost all customers decide on a material, they always buy another material as well. 
+The sellers can use these as a tool to reccomend other materials to customers to increase their purchasing opportunities.
+
 # Getting Started with React App
 
 In the project directory, you can run:

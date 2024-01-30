@@ -28,7 +28,7 @@ export const ComponentToPrint = React.forwardRef((props, ref) => {
                     : ''}
                   </tbody>
                 </table>
-                <h2 className='px-2'>Total Amount: ${totalAmount}</h2>
+                <h2 className='px-2'>Total Amount: ฿{totalAmount}</h2>
       </div>
     );
 });

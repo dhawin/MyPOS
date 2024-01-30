@@ -99,7 +99,7 @@ const CartPage = () => {
         </div>
       </div>
 
-      <h2>Total Amount: ${totalAmount}</h2>
+      <h2>Total Amount: ฿{totalAmount}</h2>
     </div>
   );
 };

@@ -37,7 +37,7 @@ function App() {
             <Route path="/saleR" element={<SalesReport />} />
             <Route path="/saleG" element={<SalesGrowth />} />
             <Route path="/upload" element={<CsvUploader />} />
-            <Route path="/chart" element={<OrderChart />} />
+            <Route path="/report" element={<OrderChart />} />
           </Routes>
         </MainLayout>
       </CartProvider>

@@ -62,7 +62,7 @@ const SalesGrowth = () => {
               <thead>
                 <tr>
                   <th>Year</th>
-                  <th>POS</th>
+                  <th>Pcs</th>
                   <th>Growth Rate</th>
                 </tr>
               </thead>

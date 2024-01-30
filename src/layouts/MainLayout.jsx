@@ -20,7 +20,7 @@ function MainLayout({ children }) {
     // { to: "/sales", label: "sales" },
     { to: "/saleR", label: "Sale Report" },
     { to: "/saleG", label: "Sale Growth" },
-    { to: "/chart", label: "chart" },
+    { to: "/report", label: "Report" },
   ];
 
   return (

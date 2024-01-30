@@ -143,7 +143,7 @@ const YearlySalesChartWithCus = ({ salesData }) => {
             },
             title: {
               display: true,
-              text: "Yearly Sales with Top 1, Top 2, Top 3 Customers and the Rest (Stacked)",
+              text: "Yearly Sales with Top 1, Top 2, Top 3 Customers and the Rest",
             },
           },
         },

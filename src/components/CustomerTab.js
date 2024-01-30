@@ -111,7 +111,6 @@ function CustomerTab({ salesData }) {
 
   return (
     <div>
-      <h2>Customer Tab Content</h2>
       {/* Dropdown for selecting years */}
       <label htmlFor="yearDropdown" aria-required="true">
         Overview Year

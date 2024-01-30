@@ -170,7 +170,6 @@ function ProductTab({ salesData }) {
 
   return (
     <div>
-      <h2>Product Tab Content</h2>
       {/* Dropdown for selecting years */}
       <div class="container-fluid">
         <div className="row">
@@ -249,7 +248,7 @@ function ProductTab({ salesData }) {
                             (targetSaleGoal >= 0 ? "text-info" : "text-danger")
                           }
                         >
-                          Target Sale Goal
+                          Target Sale Goal (%)
                         </div>
                         <div className="row no-gutters align-items-center">
                           <div className="col-auto">

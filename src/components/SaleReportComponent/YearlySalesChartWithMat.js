@@ -151,7 +151,7 @@ const YearlySalesChartWithMat = ({ salesData }) => {
             },
             title: {
               display: true,
-              text: "Yearly Sales with Top 1 to Top 5 Customers and the Rest (Stacked)",
+              text: "Yearly Sales with Top 1 to Top 5 Customers and the Rest",
             },
           },
         },

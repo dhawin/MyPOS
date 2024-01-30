@@ -12,7 +12,7 @@ console.log(years)
     labels: years,
     datasets: [
       {
-        label: "POS",
+        label: "Pcs",
         data: posValues,
         backgroundColor: "rgba(75,192,192,0.6)",
         borderColor: "rgba(75,192,192,1)",

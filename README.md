@@ -26,7 +26,7 @@ I use react to create this website this is an example of my website [https://dha
 In our pursuit of unraveling valuable insights into product relationships, we embark on a meticulous exploration of correlations, recognizing their significance in informed decision-making and strategic optimization. Python, chosen for its versatility and efficacy, emerges as the ideal programming language for this project. Its simplicity and readability make it accessible for users across skill levels, while specialized libraries like NumPy and pandas provide powerful tools for statistical analysis. Beyond correlation calculations, Python's broader applicability in machine learning and AI positions our project for future growth.
 
 ## 2.1
-[https://github.com/dhawin/MyPOS/blob/main/correlation/2.1.py]
+[full Code](https://github.com/dhawin/MyPOS/blob/main/correlation/2.1.py)
 I've used Python to find a correlation between Saleorder and Material.
 First, I create dataframe for each saleorder and material.
  ```python
